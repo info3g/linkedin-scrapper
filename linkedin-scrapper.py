@@ -101,7 +101,7 @@ class Linkedin():
                         connected = 'None'
 
                     
-                    data.append({'profile_url':profile_url,'cover':cover,'profile':profile,'title':title,'loc':loc,'website':website,'phone':phone,'email':email,'connected':connected,})
+                    data.append({'profile_url':profile_url,'cover':cover,'profile':profile,'title':title,'heading':heading,'loc':loc,'website':website,'phone':phone,'email':email,'connected':connected,})
             print("!!!!!! Data scrapped !!!!!!")
                 
         driver.quit()
