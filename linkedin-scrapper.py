@@ -1,11 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# # LinkedIn Scrapper
-
-# In[ ]:
-
-
 from selenium import webdriver
 import time
 from bs4 import BeautifulSoup
@@ -16,8 +8,8 @@ class Linkedin():
     def getData(self):
         driver = webdriver.Chrome('../chromedriver.exe')
         driver.get('https://www.linkedin.com/login')
-        driver.find_element_by_id('username').send_keys('< ENTER USERNAME >')
-        driver.find_element_by_id('password').send_keys('< ENTER PASSWORD >')
+        driver.find_element_by_id('username').send_keys('amanawsm@gmail.com')
+        driver.find_element_by_id('password').send_keys('9122@aman')
         driver.find_element_by_xpath("//*[@type='submit']").click()
 
         #*********** Search Result ***************#
@@ -28,8 +20,10 @@ class Linkedin():
             keyword = keyword + str(key1).capitalize() +"%20"
         keyword = keyword.rstrip("%20")
             
+        global data
+        data = []
 
-        for no in range(1,100):
+        for no in range(1,30):
             start = "&page={}".format(no) 
             search_url = "https://www.linkedin.com/search/results/people/?keywords={}&origin=SUGGESTION{}".format(keyword,start)
             driver.get(search_url)
@@ -41,12 +35,14 @@ class Linkedin():
             peoples = search.findAll('a', attrs = {'data-control-name':'search_srp_result'})
             count = 0
             print("Going to scrape Page {} data".format(no))
-            global data
-            data = []
+            
             for people in peoples:
                 count+=1
-                linkedin = {}
+
                 if count%2==0:
+                    
+                    
+                    
                     profile_url = "https://www.linkedin.com" + str(people['href'])
                     driver.get(profile_url)
 
@@ -88,7 +84,7 @@ class Linkedin():
                         websites = details[1].findAll('a')
                         for website in websites:
                             website = website['href']
-                            print('website :',website)
+                            
                     except:
                         website = 'None'
                     try:
@@ -103,18 +99,11 @@ class Linkedin():
                         connected = str(details[-1].find('span').text).strip()
                     except:
                         connected = 'None'
-                    linkedin.update({'profile_url':profile_url})
-                    linkedin.update({'cover':cover})
-                    linkedin.update({'profile':profile})
-                    linkedin.update({'title':title})
-                    linkedin.update({'heading':heading})
-                    linkedin.update({'loc':loc})
-                    linkedin.update({'website':website})
-                    linkedin.update({'phone':phone})
-                    linkedin.update({'email':email})
-                    linkedin.update({'connected':connected})
-                    print("!!!!!! Data scrapped !!!!!!")
-                data.append(linkedin)
+
+                    
+                    data.append({'profile_url':profile_url,'cover':cover,'profile':profile,'title':title,'loc':loc,'website':website,'phone':phone,'email':email,'connected':connected,})
+            print("!!!!!! Data scrapped !!!!!!")
+                
         driver.quit()
     def writeData(self):
         workbook = xlsxwriter.Workbook("linkedin-search-data.xlsx")
@@ -181,10 +170,3 @@ class Linkedin():
 if __name__ == "__main__":
     obJH = Linkedin()
     obJH.start()
-
-
-# In[ ]:
-
-
-
-
