@@ -47,6 +47,7 @@ class Linkedin():
                     driver.get(profile_url)
 
                     # #********** Profile Details **************#
+                    loc = ""
                     page = BeautifulSoup(driver.page_source,'lxml')
                     try:
                         cover = page.find('img', attrs = {'class':'profile-background-image__image relative full-width full-height'})['src']
