@@ -10,7 +10,7 @@ LinkedIn scrapper is advanced search result scrapper to find all people of diffe
 
 You can install selenium using Python Package manager.
 
-command: pip istall selenium
+command: pip install selenium
 
 
 ## 3. Chrome Webdriver
