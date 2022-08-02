@@ -1,19 +1,21 @@
+import selenium
 from selenium import webdriver
 import time
 from bs4 import BeautifulSoup
 import xlsxwriter
 from tkinter import *
+from selenium.webdriver.common.by import By
 
 class Linkedin():
     def getData(self):
-        driver = webdriver.Chrome('../chromedriver.exe')
+        driver = webdriver.Chrome('C:/Users/mailg/Desktop/chromedriver_win32/chromedriver.exe')
         driver.get('https://www.linkedin.com/login')
-        driver.find_element_by_id('username').send_keys('USER NAME') #Enter username of linkedin account here
-        driver.find_element_by_id('password').send_keys('PASSWORD')  #Enter Password of linkedin account here
-        driver.find_element_by_xpath("//*[@type='submit']").click()
+        driver.find_element(By.ID, 'username').send_keys('Username') #Enter username of linkedin account here
+        driver.find_element(By.ID, 'password').send_keys('Password')  #Enter Password of linkedin account here
+        driver.find_element(By.XPATH, "//*[@type='submit']").click()
 
         #*********** Search Result ***************#
-        search_key = "data analyst" # Enter your Search key here to find people
+        search_key = "Editor" # Enter your Search key here to find people
         key = search_key.split()
         keyword = ""
         for key1 in key:
